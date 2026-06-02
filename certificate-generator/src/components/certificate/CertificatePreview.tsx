@@ -57,7 +57,7 @@ const CertificatePreview = ({
       id: 'default-end-date',
       label: 'End Date',
       x: 50,
-      y: 70,
+      y: 71,
       fontSize: 18,
       color: '#8b4513',
       fontFamily: 'Georgia, "Times New Roman", serif',
