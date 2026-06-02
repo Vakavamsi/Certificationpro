@@ -32,50 +32,38 @@ const CertificatePreview = ({
   const imageRef = useRef<HTMLImageElement>(null);
   const [scale, setScale] = useState<number>(1);
 
-  const activePlaceholders = template?.placeholders && template.placeholders.length > 0
-    ? template.placeholders
-    : [
-        {
-          id: 'default-recipient',
-          label: 'Recipient Name',
-          x: 50,
-          y: 44,
-          fontSize: 48,
-          color: '#4a2511',
-          fontFamily: '"Brush Script MT", "Great Vibes", cursive',
-          alignment: 'center' as const,
-        },
-        {
-          id: 'default-title',
-          label: 'Course Title',
-          x: 50,
-          y: 58,
-          fontSize: 28,
-          color: '#374151',
-          fontFamily: 'Arial, sans-serif',
-          alignment: 'center' as const,
-        },
-        {
-          id: 'default-start-date',
-          label: 'Start Date',
-          x: 42,
-          y: 76,
-          fontSize: 16,
-          color: '#374151',
-          fontFamily: 'Georgia, serif',
-          alignment: 'center' as const,
-        },
-        {
-          id: 'default-end-date',
-          label: 'End Date',
-          x: 58,
-          y: 76,
-          fontSize: 16,
-          color: '#374151',
-          fontFamily: 'Georgia, serif',
-          alignment: 'center' as const,
-        }
-      ];
+  const activePlaceholders = [
+    {
+      id: 'default-recipient',
+      label: 'Recipient Name',
+      x: 50,
+      y: 39,
+      fontSize: 56,
+      color: '#8b4513',
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      alignment: 'center' as const,
+    },
+    {
+      id: 'default-start-date',
+      label: 'Start Date',
+      x: 50,
+      y: 65,
+      fontSize: 18,
+      color: '#8b4513',
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      alignment: 'center' as const,
+    },
+    {
+      id: 'default-end-date',
+      label: 'End Date',
+      x: 50,
+      y: 79,
+      fontSize: 18,
+      color: '#8b4513',
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      alignment: 'center' as const,
+    }
+  ];
 
   const calculateScale = () => {
     const img = imageRef.current;
