@@ -16,40 +16,39 @@ const CertificateEditor: React.FC<CertificateEditorProps> = ({ template, onBack 
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
   const [localImageUrl, setLocalImageUrl] = useState<string | null>(null);
 
-  const activePlaceholders = template?.placeholders && template.placeholders.length > 0
-    ? template.placeholders
-    : [
-        {
-          id: 'default-recipient',
-          label: 'Recipient Name',
-          x: 50,
-          y: 49,
-          fontSize: 56,
-          color: '#8b4513',
-          fontFamily: 'Georgia, "Times New Roman", serif',
-          alignment: 'center' as const,
-        },
-        {
-          id: 'default-start-date',
-          label: 'Start Date',
-          x: 42,
-          y: 81,
-          fontSize: 18,
-          color: '#8b4513',
-          fontFamily: 'Georgia, "Times New Roman", serif',
-          alignment: 'center' as const,
-        },
-        {
-          id: 'default-end-date',
-          label: 'End Date',
-          x: 58,
-          y: 81,
-          fontSize: 18,
-          color: '#8b4513',
-          fontFamily: 'Georgia, "Times New Roman", serif',
-          alignment: 'center' as const,
-        }
-      ];
+  // Force override the template placeholders with our custom ones for this specific design
+  const activePlaceholders = [
+    {
+      id: 'default-recipient',
+      label: 'Recipient Name',
+      x: 50,
+      y: 39,
+      fontSize: 56,
+      color: '#8b4513',
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      alignment: 'center' as const,
+    },
+    {
+      id: 'default-start-date',
+      label: 'Start Date',
+      x: 50,
+      y: 65,
+      fontSize: 18,
+      color: '#8b4513',
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      alignment: 'center' as const,
+    },
+    {
+      id: 'default-end-date',
+      label: 'End Date',
+      x: 50,
+      y: 79,
+      fontSize: 18,
+      color: '#8b4513',
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      alignment: 'center' as const,
+    }
+  ];
 
   useEffect(() => {
     const initial: Record<string, string> = {};
