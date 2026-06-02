@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Gold Gradients for the Rosette -->
+    <linearGradient id="gold-bright" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+    
+    <linearGradient id="gold-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="50%" stop-color="#92400E" />
+      <stop offset="100%" stop-color="#78350F" />
+    </linearGradient>
+
+    <!-- Ribbons Gradients -->
+    <linearGradient id="gold-ribbon" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="50%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <radialGradient id="gold-dome" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="40%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#92400E" />
+    </radialGradient>
+
+    <linearGradient id="star-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FEF08A" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    
+    <linearGradient id="star-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#78350F" />
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-opacity="0.3" flood-color="#000000" />
+    </filter>
+
+    <filter id="inner-shadow">
+      <feOffset dx="0" dy="4"/>
+      <feGaussianBlur stdDeviation="5" result="offset-blur"/>
+      <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+      <feFlood flood-color="black" flood-opacity="0.5" result="color"/>
+      <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+      <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+    </filter>
+
+    <!-- Leaf Definition -->
+    <path id="leaf-up" d="M 0 0 Q -12 -15 0 -30 Q 12 -15 0 0 Z" fill="url(#gold-bright)" />
+    <!-- A slightly darker leaf for inner parts -->
+    <path id="leaf-inner" d="M 0 0 Q -10 -12 0 -24 Q 10 -12 0 0 Z" fill="url(#gold-dark)" />
+  </defs>
+
+  <!-- Ribbons with shadow -->
+  <g filter="url(#shadow)">
+    <!-- Left Ribbon -->
+    <path d="M 120 256 L 70 470 L 160 420 L 220 480 L 240 256 Z" fill="url(#gold-ribbon)" />
+    <!-- Left Ribbon Fold/Shadow -->
+    <path d="M 220 480 L 240 256 L 220 256 Z" fill="#78350F" opacity="0.4" />
+    <path d="M 120 256 L 160 350 L 140 256 Z" fill="#FEF08A" opacity="0.3" />
+
+    <!-- Right Ribbon -->
+    <path d="M 392 256 L 442 470 L 352 420 L 292 480 L 272 256 Z" fill="url(#gold-ribbon)" />
+    <!-- Right Ribbon Fold/Shadow -->
+    <path d="M 292 480 L 272 256 L 292 256 Z" fill="#78350F" opacity="0.4" />
+    <path d="M 392 256 L 352 350 L 372 256 Z" fill="#FEF08A" opacity="0.3" />
+  </g>
+
+  <!-- Seal / Rosette (Outer Scalloped Edge) -->
+  <g filter="url(#shadow)">
+    <!-- 24-point rosette -->
+    <rect x="76" y="76" width="360" height="360" rx="40" fill="url(#gold-bright)" transform="rotate(0 256 256)"/>
+    <rect x="76" y="76" width="360" height="360" rx="40" fill="url(#gold-bright)" transform="rotate(15 256 256)"/>
+    <rect x="76" y="76" width="360" height="360" rx="40" fill="url(#gold-bright)" transform="rotate(30 256 256)"/>
+    <rect x="76" y="76" width="360" height="360" rx="40" fill="url(#gold-bright)" transform="rotate(45 256 256)"/>
+    <rect x="76" y="76" width="360" height="360" rx="40" fill="url(#gold-bright)" transform="rotate(60 256 256)"/>
+    <rect x="76" y="76" width="360" height="360" rx="40" fill="url(#gold-bright)" transform="rotate(75 256 256)"/>
+  </g>
+  
+  <!-- Outer Rim details -->
+  <circle cx="256" cy="256" r="185" fill="none" stroke="#FDE047" stroke-width="4" opacity="0.6"/>
+  
+  <!-- Inner Circles -->
+  <circle cx="256" cy="256" r="170" fill="url(#gold-dark)" filter="url(#inner-shadow)" />
+  <circle cx="256" cy="256" r="155" fill="url(#gold-bright)" />
+  <circle cx="256" cy="256" r="145" fill="url(#gold-dome)" />
+
+  <!-- Laurel Wreath -->
+  <g opacity="0.95">
+    <!-- Left branch -->
+    <path d="M 160 340 A 140 140 0 0 1 240 130" fill="none" stroke="url(#gold-dark)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Left leaves outer -->
+    <use href="#leaf-up" transform="translate(240, 130) rotate(45) scale(0.7)" />
+    <use href="#leaf-up" transform="translate(210, 148) rotate(35) scale(0.8)" />
+    <use href="#leaf-up" transform="translate(182, 175) rotate(25) scale(0.9)" />
+    <use href="#leaf-up" transform="translate(160, 208) rotate(15) scale(1)" />
+    <use href="#leaf-up" transform="translate(145, 245) rotate(5) scale(1.1)" />
+    <use href="#leaf-up" transform="translate(140, 285) rotate(-5) scale(1.1)" />
+    <use href="#leaf-up" transform="translate(148, 325) rotate(-15) scale(1)" />
+    <!-- Left leaves inner -->
+    <use href="#leaf-inner" transform="translate(210, 148) rotate(80) scale(0.6)" />
+    <use href="#leaf-inner" transform="translate(182, 175) rotate(70) scale(0.7)" />
+    <use href="#leaf-inner" transform="translate(160, 208) rotate(60) scale(0.8)" />
+    <use href="#leaf-inner" transform="translate(145, 245) rotate(50) scale(0.9)" />
+    <use href="#leaf-inner" transform="translate(140, 285) rotate(40) scale(0.9)" />
+    <use href="#leaf-inner" transform="translate(148, 325) rotate(30) scale(0.8)" />
+
+    <!-- Right branch -->
+    <path d="M 352 340 A 140 140 0 0 0 272 130" fill="none" stroke="url(#gold-dark)" stroke-width="3" stroke-linecap="round"/>
+    <!-- Right leaves outer -->
+    <use href="#leaf-up" transform="translate(272, 130) rotate(-45) scale(0.7)" />
+    <use href="#leaf-up" transform="translate(302, 148) rotate(-35) scale(0.8)" />
+    <use href="#leaf-up" transform="translate(330, 175) rotate(-25) scale(0.9)" />
+    <use href="#leaf-up" transform="translate(352, 208) rotate(-15) scale(1)" />
+    <use href="#leaf-up" transform="translate(367, 245) rotate(-5) scale(1.1)" />
+    <use href="#leaf-up" transform="translate(372, 285) rotate(5) scale(1.1)" />
+    <use href="#leaf-up" transform="translate(364, 325) rotate(15) scale(1)" />
+    <!-- Right leaves inner -->
+    <use href="#leaf-inner" transform="translate(302, 148) rotate(-80) scale(0.6)" />
+    <use href="#leaf-inner" transform="translate(330, 175) rotate(-70) scale(0.7)" />
+    <use href="#leaf-inner" transform="translate(352, 208) rotate(-60) scale(0.8)" />
+    <use href="#leaf-inner" transform="translate(367, 245) rotate(-50) scale(0.9)" />
+    <use href="#leaf-inner" transform="translate(372, 285) rotate(-40) scale(0.9)" />
+    <use href="#leaf-inner" transform="translate(364, 325) rotate(-30) scale(0.8)" />
+  </g>
+
+  <!-- Small diamond at bottom center of wreath -->
+  <polygon points="256,365 262,375 256,385 250,375" fill="url(#gold-dark)" />
+
+  <!-- 3D Faceted Star -->
+  <!-- Center: 256, 252 for a bit higher placement inside the wreath -->
+  <g filter="url(#shadow)">
+    <!-- Facet 1 (Light) -->
+    <polygon points="256,150 227,220 256,252" fill="url(#star-light)" />
+    <!-- Facet 2 (Dark) -->
+    <polygon points="256,150 285,220 256,252" fill="url(#star-dark)" />
+    <!-- Facet 3 (Light) -->
+    <polygon points="350,220 285,220 256,252" fill="url(#star-light)" />
+    <!-- Facet 4 (Dark) -->
+    <polygon points="350,220 295,265 256,252" fill="url(#star-dark)" />
+    <!-- Facet 5 (Light) -->
+    <polygon points="315,335 295,265 256,252" fill="url(#star-light)" />
+    <!-- Facet 6 (Dark) -->
+    <polygon points="315,335 256,295 256,252" fill="url(#star-dark)" />
+    <!-- Facet 7 (Light) -->
+    <polygon points="197,335 256,295 256,252" fill="url(#star-light)" />
+    <!-- Facet 8 (Dark) -->
+    <polygon points="197,335 217,265 256,252" fill="url(#star-dark)" />
+    <!-- Facet 9 (Light) -->
+    <polygon points="162,220 217,265 256,252" fill="url(#star-light)" />
+    <!-- Facet 10 (Dark) -->
+    <polygon points="162,220 227,220 256,252" fill="url(#star-dark)" />
+  </g>
+</svg>
