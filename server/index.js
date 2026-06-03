@@ -70,6 +70,11 @@ async function ensureDatabaseExists() {
 // Ensure database exists before Sequelize connection
 // await ensureDatabaseExists();
 
+console.log("DB_HOST =", process.env.DB_HOST);
+console.log("DB_PORT =", process.env.DB_PORT);
+console.log("DB_NAME =", process.env.DB_NAME);
+console.log("DB_USER =", process.env.DB_USER);
+
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
