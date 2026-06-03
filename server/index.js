@@ -68,7 +68,7 @@ async function ensureDatabaseExists() {
 }
 
 // Ensure database exists before Sequelize connection
-await ensureDatabaseExists();
+// await ensureDatabaseExists();
 
 const sequelize = new Sequelize(
   process.env.DB_NAME || 'certificate_studio',
