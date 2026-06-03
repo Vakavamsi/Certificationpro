@@ -15,6 +15,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const serverRoot = __dirname;
+const uploadsRoot = path.join(serverRoot, 'uploads');
+const clientBuildPath = path.join(serverRoot, '../certificate-generator/dist');
 
 // Middleware
 app.use(cors());
@@ -22,13 +25,13 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Ensure upload directories exist
-const uploadTemplatesDir = path.join(process.cwd(), 'uploads/templates');
-const uploadCertificatesDir = path.join(process.cwd(), 'uploads/certificates');
+const uploadTemplatesDir = path.join(uploadsRoot, 'templates');
+const uploadCertificatesDir = path.join(uploadsRoot, 'certificates');
 fs.mkdirSync(uploadTemplatesDir, { recursive: true });
 fs.mkdirSync(uploadCertificatesDir, { recursive: true });
 
-// Serve static files
-app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+// Serve uploads
+app.use('/uploads', express.static(uploadsRoot));
 
 // 1. Database Initialization
 const { Client } = pg;
@@ -58,6 +61,7 @@ async function ensureDatabaseExists() {
     }
   } catch (err) {
     console.error('Error ensuring PostgreSQL database exists:', err.message);
+    process.exit(1);
   } finally {
     await client.end();
   }
@@ -115,16 +119,18 @@ const Certificate = sequelize.define('Certificate', {
 
 // Sync database models
 try {
+  await sequelize.authenticate();
   await sequelize.sync();
-  console.log('PostgreSQL database synced successfully.');
+  console.log('PostgreSQL database authenticated and synced successfully.');
 } catch (error) {
-  console.error('Unable to sync PostgreSQL database:', error);
+  console.error('Unable to connect or sync PostgreSQL database:', error);
+  process.exit(1);
 }
 
 // Multer Storage Configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/templates');
+    cb(null, uploadTemplatesDir);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -184,7 +190,7 @@ app.delete('/api/templates/:id', async (req, res) => {
 
     // Delete image file if exists
     const relativeImagePath = template.image.startsWith('/') ? template.image.substring(1) : template.image;
-    const fullPath = path.join(process.cwd(), relativeImagePath);
+    const fullPath = path.join(serverRoot, relativeImagePath);
     if (fs.existsSync(fullPath)) {
       fs.unlinkSync(fullPath);
     }
@@ -207,7 +213,7 @@ app.post('/api/certificates/generate', async (req, res) => {
       const base64Data = imageBase64.replace(/^data:image\/\w+;base64,/, "");
       const buffer = Buffer.from(base64Data, 'base64');
       const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}.png`;
-      const filePath = path.join('uploads/certificates', filename);
+      const filePath = path.join(uploadCertificatesDir, filename);
       fs.writeFileSync(filePath, buffer);
       imageUrl = `/uploads/certificates/${filename}`;
     }
@@ -225,6 +231,17 @@ app.post('/api/certificates/generate', async (req, res) => {
     res.status(500).json({ error: 'Failed to generate certificate' });
   }
 });
+
+// Serve frontend build in production when available
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
+  app.get('*', (req, res) => {
+    if (req.path.startsWith('/api/')) {
+      return res.status(404).json({ error: 'API route not found' });
+    }
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
+  });
+}
 
 // Start Server
 app.listen(PORT, () => {

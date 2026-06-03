@@ -88,7 +88,7 @@ const CertificateStudio: React.FC<CertificateStudioProps> = ({ onUseTemplate }) 
               <TemplateCard 
                 key={template.id} 
                 title={template.name} 
-                imageUrl={template.image.startsWith('/') ? `http://localhost:5000${template.image}` : template.image}
+                imageUrl={template.image.startsWith('/') ? `${import.meta.env.VITE_BACKEND_URL}${template.image}` : template.image}
                 onUse={() => onUseTemplate(template)}
                 onDelete={() => handleDelete(template.id)}
               />

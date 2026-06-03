@@ -63,7 +63,7 @@ const CertificateEditor: React.FC<CertificateEditorProps> = ({ template, onBack 
       const img = new Image();
       img.crossOrigin = 'anonymous';
       const imageUrl = template.image.startsWith('/') 
-        ? `http://localhost:5000${template.image}` 
+        ? import.meta.env.VITE_BACKEND_URL
         : template.image;
 
       img.onload = () => {
@@ -129,7 +129,7 @@ const CertificateEditor: React.FC<CertificateEditorProps> = ({ template, onBack 
       });
 
       if (response && response.imageUrl) {
-        setGeneratedUrl(`http://localhost:5000${response.imageUrl}`);
+        setGeneratedUrl(`${import.meta.env.VITE_BACKEND_URL}${response.imageUrl}`);
       } else {
         setGeneratedUrl(base64Image);
       }

@@ -119,7 +119,7 @@ const CertificatePreview = ({
   }
 
   const imageUrl = template.image.startsWith('/') 
-    ? `http://localhost:5000${template.image}` 
+    ? `${import.meta.env.VITE_BACKEND_URL}${template.image}`
     : template.image;
 
   return (
