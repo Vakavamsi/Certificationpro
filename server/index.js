@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import pg from 'pg';
 import { Sequelize, DataTypes } from 'sequelize';
+throw new Error("TEST DEPLOYMENT");
 
 dotenv.config();
 console.log("=== APP STARTING ===");
